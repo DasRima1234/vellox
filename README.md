@@ -1,6 +1,6 @@
 # Vellox
 
-A modern healthcare portal built with **Laravel 11**, **React**, and **Tailwind CSS**.
+A modern healthcare portal built with **Laravel**, **React**, and **Tailwind CSS**.
 
 ## Features
 - 🏥 **Real-time Scheduling**: Dynamic slot generation based on doctor work hours.
