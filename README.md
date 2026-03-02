@@ -1,3 +1,18 @@
+# Vellox Health - Appointment Booking System
+
+A modern healthcare portal built with **Laravel 11**, **React**, and **Tailwind CSS**.
+
+## Features
+- 🏥 **Real-time Scheduling**: Dynamic slot generation based on doctor work hours.
+- 🕒 **Timezone Aware**: Automatic filtering of past slots.
+- 📅 **User Dashboard**: View and cancel upcoming appointments.
+- 💎 **Modern UI**: Fully responsive bento-box design.
+
+## Tech Stack
+- **Backend**: PHP (Laravel), Carbon (Date handling)
+- **Frontend**: React.js, Tailwind CSS, Axios
+- **Database**: MySQL / SQLite
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
