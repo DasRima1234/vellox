@@ -1,4 +1,4 @@
-# Vellox Health - Appointment Booking System
+# Vellox
 
 A modern healthcare portal built with **Laravel 11**, **React**, and **Tailwind CSS**.
 
