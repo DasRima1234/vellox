@@ -47,7 +47,7 @@ const UserDashboard = ({ userId = 1 }) => {
                                     {booking.bookable?.name.charAt(0)}
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-slate-900 text-lg">Dr. {booking.bookable?.name}</h4>
+                                    <h4 className="font-bold text-slate-900 text-lg">{booking.bookable?.name}</h4>
                                     <p className="text-slate-500 text-sm font-medium">
                                         {new Date(booking.start_time).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
                                     </p>

@@ -1,105 +1,85 @@
-import React, { useRef } from "react";
-import BookingCalendar from "../components/BookingCalendar";
-import { useState } from "react";
-import UserDashboard from "../components/UserDashboard";
+import React, { useState } from 'react';
+import Sidebar from '../components/Sidebar';
+import BookingCalendar from '../components/BookingCalendar';
+import UserDashboard from '../components/UserDashboard';
+import LandingPage from './LandingPage';
 
 const Home = () => {
-    const bookingRef = useRef(null);
-    const [view, setView] = useState("home");
-    const scrollToBooking = () => {
-        bookingRef.current?.scrollIntoView({ behavior: "smooth" });
+    const [isStarted, setIsStarted] = useState(false); // New state to track if user entered the app
+    const [activeTab, setActiveTab] = useState('explore');
+
+    // 1. If not started, show the Landing Page
+    if (!isStarted) {
+        return <LandingPage onGetStarted={() => setIsStarted(true)} />;
+    }
+
+    const renderMainContent = () => {
+        return (
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                
+                {/* Main Booking Card - Primary Focus */}
+                <div className="md:col-span-8 space-y-6">
+                    <div className="bg-white rounded-[2rem] p-10 border border-slate-100 shadow-sm">
+                        <header className="mb-8">
+                            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Schedule Consultation</h2>
+                            <p className="text-slate-500 font-medium">Select a doctor and your preferred time slot.</p>
+                        </header>
+                        
+                        <BookingCalendar />
+                    </div>
+                </div>
+
+                {/* Side Stats - Simple & Classic */}
+                <div className="md:col-span-4 space-y-6">
+                    {/* Welcome Card */}
+                    <div className="bg-blue-600 rounded-[2rem] p-8 text-white shadow-xl shadow-blue-100">
+                        <h3 className="text-xl font-bold mb-2">Good Afternoon, John</h3>
+                        <p className="text-blue-100 text-sm mb-6">You have no health alerts today. Stay hydrated!</p>
+                        <div className="bg-white/10 rounded-2xl p-4 border border-white/10">
+                            <p className="text-[10px] font-black uppercase tracking-widest opacity-70">Next Appointment</p>
+                            <p className="font-bold text-lg">Not Scheduled</p>
+                        </div>
+                    </div>
+
+                    {/* Quick Stats Grid */}
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-white p-6 rounded-[2rem] border border-slate-100 text-center">
+                            <p className="text-2xl mb-1">🩸</p>
+                            <p className="text-xs font-black text-slate-400 uppercase">Blood</p>
+                            <p className="font-bold text-slate-900">O+</p>
+                        </div>
+                        <div className="bg-white p-6 rounded-[2rem] border border-slate-100 text-center">
+                            <p className="text-2xl mb-1">⚖️</p>
+                            <p className="text-xs font-black text-slate-400 uppercase">Weight</p>
+                            <p className="font-bold text-slate-900">72kg</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
     };
 
     return (
-        <div className="bg-[#F8FAFC] min-h-screen font-sans text-slate-900">
-            {/* --- Navigation --- */}
-            <nav className="flex justify-between items-center px-8 py-6 max-w-7xl mx-auto">
-                <div
-                    onClick={() => setView("home")}
-                    className="text-2xl font-black tracking-tighter text-blue-600 cursor-pointer"
-                >
-                    VELLOX
-                </div>
-                <div className="flex gap-4">
-                    <button
-                        onClick={() => setView("dashboard")}
-                        className="text-slate-500 font-bold text-sm hover:text-blue-600 px-4"
-                    >
-                        My Appointments
-                    </button>
-                    <button
-                        onClick={() => {
-                            scrollToBooking();
-                        }}
-                        className="bg-slate-900 text-white px-6 py-3 rounded-full font-bold text-sm shadow-xl"
-                    >
-                        Book Now
-                    </button>
-                </div>
-            </nav>
+        <div className="flex min-h-screen bg-[#F8FAFC] font-sans">
+            <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+            
+            <div className="flex-1 lg:ml-72">
+                {/* Minimal Header */}
+                <header className="h-20 px-10 flex items-center justify-between bg-white/50 backdrop-blur-md sticky top-0 z-40">
+                    <div className="flex gap-6">
+                        {['Services', 'Find Doctors', 'About'].map(link => (
+                            <button key={link} className="text-xs font-bold text-slate-400 hover:text-blue-600 transition uppercase tracking-widest">
+                                {link}
+                            </button>
+                        ))}
+                    </div>
+                    <button className="p-2 bg-slate-100 rounded-xl hover:bg-slate-200 transition">🔔</button>
+                </header>
 
-            {/* --- Hero Section --- */}
-            <header className="px-6 pt-16 pb-24 max-w-7xl mx-auto text-center">
-                <span className="bg-blue-50 text-blue-600 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-6 inline-block">
-                    Next-Gen Healthcare
-                </span>
-                <h1 className="text-5xl md:text-7xl font-black mb-8 leading-tight tracking-tight">
-                    Healthcare that <br />
-                    <span className="text-blue-600">moves at your speed.</span>
-                </h1>
-                <p className="text-lg text-slate-500 max-w-2xl mx-auto mb-12 font-medium">
-                    Skip the waiting room. Connect with world-class specialists
-                    and manage your health journey through our seamless digital
-                    portal.
-                </p>
-                <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-                    <button
-                        onClick={scrollToBooking}
-                        className="w-full md:w-auto bg-blue-600 text-white px-10 py-5 rounded-3xl font-black text-lg shadow-2xl shadow-blue-200 hover:scale-105 transition-transform"
-                    >
-                        Schedule Appointment
-                    </button>
-                    <button className="w-full md:w-auto bg-white border-2 border-slate-100 px-10 py-5 rounded-3xl font-black text-lg hover:bg-slate-50 transition-all">
-                        View Services
-                    </button>
-                </div>
-            </header>
-
-            {/* --- Stats / Bento Grid --- */}
-            <section className="py-20">
-                {view === "home" ? (
-                    <>
-                        {/* <HeroSection /> */}
-                        {/* <BookingCalendar /> */}
-                    </>
-                ) : (
-                    <UserDashboard />
-                )}
-            </section>
-
-            {/* --- The Booking Section --- */}
-            <section
-                ref={bookingRef}
-                className="py-24 bg-white mt-20 rounded-t-[4rem] shadow-[0_-20px_50px_-20px_rgba(0,0,0,0.05)]"
-            >
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl font-black mb-4">
-                        Ready to begin?
-                    </h2>
-                    <p className="text-slate-400 font-medium">
-                        Select your doctor below to see available slots.
-                    </p>
-                </div>
-                <BookingCalendar />
-            </section>
-
-            {/* --- Footer --- */}
-            <footer className="bg-slate-900 py-20 px-8 text-white text-center">
-                <div className="text-3xl font-black mb-8 italic">VELLOX</div>
-                <p className="opacity-50 text-sm">
-                    © 2026 Vellox Health Systems. All rights reserved.
-                </p>
-            </footer>
+                <main className="p-10">
+                    {activeTab === 'explore' ? renderMainContent() : <UserDashboard />}
+                </main>
+            </div>
         </div>
     );
 };
